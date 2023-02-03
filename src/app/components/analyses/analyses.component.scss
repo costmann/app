@@ -1,0 +1,99 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-column-number {
+    flex: 0 0 160px !important;
+    width: 160px !important;
+    font-weight: bold;
+  }
+  
+  .mat-column-formDate {
+    flex: 0 0 90px !important;
+    width: 90px !important;
+    padding-left: 10px;
+  }
+  
+  .mat-column-samplingDate {
+    flex: 0 0 90px !important;
+    width: 90px !important;
+    padding-left: 10px;
+  }
+  
+  .mat-column-authority {
+    padding-left: 10px;
+  }
+  
+  .mat-column-hauler {
+    padding-left: 10px;
+    flex: 0 0 120px !important;
+    width: 120px !important;
+  }
+  
+  .mat-column-consignee {
+    padding-left: 10px;
+    flex: 0 0 110px !important;
+    width: 110px !important;
+  }
+  
+  .mat-column-plant {
+    padding-left: 10px;
+    flex: 0 0 320px !important;
+    width: 320px !important;
+  }
+  
+  .mat-column-district {
+    padding-left: 10px;
+    flex: 0 0 220px !important;
+    width: 220px !important;
+  }
+  
+  .mat-column-scheduleInfo {
+    padding-left: 20px;
+    flex: 0 0 220px !important;
+    width: 220px !important;
+  }
+  
+  .mat-column-scheduledDate {
+    flex: 0 0 110px !important;
+    width: 110px !important;
+    padding-left: 10px;
+  }
+  
+  .mat-column-ewc {
+    padding-left: 10px;
+    flex: 0 0 180px !important;
+    width: 180px !important;
+  }
+  
+  .mat-column-quantity {
+    padding-left: 10px;
+    padding-right: 10px;
+    flex: 0 0 100px !important;
+    width: 100px !important;
+    text-align: end;
+  }
+  
+  .mat-column-compiling {
+    flex: 0 0 60px !important;
+    width: 60px !important;
+    padding-right: 10px;
+  }
+  
+  .table-container {
+    position: relative;
+    height: calc(100vh - 210px);
+    overflow-y: auto;
+    overflow-x: auto;
+    // background-color: lightyellow;
+  }
+  
+  .disabled {
+    background-color: whitesmoke
+  }
+  
+  .toolbar-spacer {
+    flex: 1 1 auto;
+  }
+  
+  

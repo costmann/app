@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>NUOVO UTENTE</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="flex flex-col">
+
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>Utente</mat-label>
+      <input matInput cdkFocusInitial [(ngModel)]="userName" autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Ruolo</mat-label>
+      <mat-select [(ngModel)]="role" (selectionChange)="onRoleChange()">
+        <mat-option></mat-option>
+        <mat-option *ngFor="let r of roles$ | async" [value]="r">
+          {{r.description}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="h-20">
+
+      <mat-form-field appearance="outline" *ngIf="!!role && role.isAnalyst" class="w-full">
+        <mat-label>Laboratorio di analisi</mat-label>
+        <mat-select [(ngModel)]="laboratory" [disabled]="!role || !role.isAnalyst">
+          <mat-option></mat-option>
+          <mat-option *ngFor="let l of laboratories$ | async" [value]="l">
+            {{l.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" *ngIf="!!role && role.isAuthority" class="w-full">
+        <mat-label>Area</mat-label>
+        <mat-select [(ngModel)]="areas" [disabled]="!role || !role.isAuthority" multiple>
+          <!-- <mat-option></mat-option> -->
+          <mat-option *ngFor="let a of areas$ | async" [value]="a">
+            {{a.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+  </div>
+  <div [class.invisible]="!errorMessage" class="h-8 flex flex-wrap content-center justify-center bg-red-100 border border-red-600 rounded-md">
+    <span class="text-red-700 font-semibold">ATTENZIONE: {{errorMessage}}</span>
+  </div>
+</mat-dialog-content>
+<!-- <mat-divider></mat-divider> -->
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Annulla</button>
+  <button mat-raised-button (click)="save()" color="primary" [disabled]="!isValid()" >Aggiungi</button>
+</mat-dialog-actions>
+

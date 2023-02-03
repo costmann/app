@@ -1,0 +1,55 @@
+<h1 mat-dialog-title>{{data.number}}</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <div class="flex flex-col mb-10">
+      <mat-form-field appearance="outline">
+        <mat-label>Tipologia di raccolta</mat-label>
+        <mat-select formControlName="recyclingTypeId" required cdkFocusInitial>
+          <!-- <mat-option></mat-option> -->
+          <mat-option *ngFor="let c of types$ | async" [value]="c.id">
+            {{c.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Laboratorio di analisi</mat-label>
+        <mat-select formControlName="laboratoryId" required>
+          <!-- <mat-option></mat-option> -->
+          <mat-option *ngFor="let l of laboratories$ | async" [value]="l.id">
+            {{l.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data analisi</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="scheduledDate" autocomplete="off" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Ora analisi</mat-label>
+        <mat-select formControlName="scheduledTime" required>
+          <!-- <mat-option></mat-option> -->
+          <mat-option *ngFor="let h of hours$ | async" [value]="h">
+            {{h}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div mat-dialog-actions class="flex justify-between">
+    <div>
+      <button mat-raised-button color="warn" (click)="onDelete()" type="button" *ngIf="!!data.schedule && (data.schedule.compiling === false) && (data.schedule.confirmed === false)">Cancella Richiesta</button>
+    </div>
+    <div>
+      <button mat-button mat-dialog-close type="button">Chiudi</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="(form.valid === false) || (form.touched === false)">Salva</button>
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>IMPOSTA AREA</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="flex flex-col">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Analisi</mat-label>
+      <mat-select [(ngModel)]="analyses" [disabled]="false" multiple [disabled]="false">
+        <mat-select-trigger *ngIf="!!analyses">
+          {{ analyses.length > 0 ? analyses[0].number : ''}}
+          <span *ngIf="analyses.length > 1" class="additional-selection">
+            (+{{analyses.length - 1}} {{analyses.length === 2 ? 'un altro' : 'altri'}})
+          </span>
+        </mat-select-trigger>
+
+        <mat-option *ngFor="let a of data" [value]="a">
+          {{a.number}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline">
+      <mat-label>Area</mat-label>
+      <mat-select [(ngModel)]="area" cdkFocusInitial>
+        <mat-option></mat-option>
+        <mat-option *ngFor="let a of areas$ | async" [value]="a">
+          {{a.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div [class.invisible]="!errorMessage" class="h-8 flex flex-wrap content-center justify-center bg-red-100 border border-red-600 rounded-md">
+    <span class="text-red-700 font-semibold">ATTENZIONE: {{errorMessage}}</span>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Annulla</button>
+  <button mat-raised-button (click)="save()" color="primary" [disabled]="analyses?.length === 0">Imposta</button>
+</mat-dialog-actions>
+

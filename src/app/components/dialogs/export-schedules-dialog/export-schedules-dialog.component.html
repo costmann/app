@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>Esportazione programma</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <div class="flex flex-col mb-10">
+
+      <mat-form-field appearance="outline" *ngIf="!hideLaboratories">
+        <mat-label>Laboratorio di analisi</mat-label>
+        <mat-select formControlName="laboratoryId">
+          <mat-option></mat-option>
+          <mat-option *ngFor="let l of laboratories$ | async" [value]="l.id">
+            {{l.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- <mat-form-field appearance="outline">
+        <mat-label>Data analisi</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="scheduledDate" autocomplete="off" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field> -->
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data analisi</mat-label>
+        <mat-date-range-input [formGroup]="form" [rangePicker]="rangeDatePicker" required>
+          <input matStartDate placeholder="da" formControlName="start" readonly required>
+          <input matEndDate placeholder="a" formControlName="end" readonly>
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="rangeDatePicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #rangeDatePicker>
+          <mat-date-range-picker-actions>
+            <button mat-button matDateRangePickerCancel>Annulla</button>
+            <button mat-raised-button color="primary" matDateRangePickerApply>Ok</button>
+          </mat-date-range-picker-actions>
+        </mat-date-range-picker>
+      </mat-form-field>
+
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="flex justify-end">
+    <div>
+      <button mat-button mat-dialog-close type="button">Chiudi</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="(form.valid === false) || (form.touched === false)">Esporta</button>
+    </div>
+  </div>
+
+</form>

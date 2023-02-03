@@ -1,0 +1,106 @@
+<div class="mx-5 my-0">
+    <div class="flex items-center">
+  
+      <div class="flex flex-none justify-start w-48">
+  
+      </div>
+      <div class="flex justify-center w-full">
+        <mat-form-field class="w-64">
+          <mat-label>Cerca</mat-label>
+          <input matInput placeholder="Cerca in tutte le analisi" #input autocomplete="off" [(ngModel)]="this.filter.filter">
+          <button *ngIf="!!input.value" matSuffix mat-icon-button aria-label="Clear" (click)="resetInput()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="flex flex-none justify-end w-48">
+        <button mat-raised-button (click)="export()" class="font-light" color="primary" *ngIf="canExport()">
+          <mat-icon class="material-icons-outlined">file_download</mat-icon><span> Esporta programma</span>
+        </button>
+      </div>
+    </div>
+  
+    <div class="h-1">
+      <mat-progress-bar mode="indeterminate" *ngIf="dataSource.loading$ | async as loading"></mat-progress-bar>
+    </div>
+  
+    <div class="mat-elevation-z8" [class.invisible]="(dataSource.length$ | async) === 0">
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort [matSortActive]="filter.sortColumn" [matSortDirection]="filter.sortDirection">
+  
+  
+          <ng-container matColumnDef="compiling">
+            <th mat-header-cell *matHeaderCellDef>
+              <!-- <mat-icon class="material-icons-outlined" >edit</mat-icon> -->
+            </th>
+            <td mat-cell *matCellDef="let a">
+              <mat-icon class="material-icons-outlined mt-2" *ngIf="a.compiling" matTooltip="Analisi in corso" matTooltipClass="app-tooltip">science</mat-icon>
+              <mat-icon class="material-icons-outlined mt-2 text-green-700" *ngIf="a.confirmed" matTooltip="Consolidata" matTooltipClass="app-tooltip">verified</mat-icon>
+              <mat-icon class="material-icons-outlined mt-2" *ngIf="schedule(a)" matTooltip="Programmata" matTooltipClass="app-tooltip">schedule</mat-icon>
+              <mat-icon class="material-icons-outlined mt-2 text-red-700" *ngIf="alarm(a)" matTooltip="In ritardo" matTooltipClass="app-tooltip">alarm</mat-icon>
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="number">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Formulario</th>
+            <td mat-cell class="" *matCellDef="let a">{{a.number}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="authority">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Ente</th>
+            <td mat-cell class="" *matCellDef="let a">{{a.authority}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="plant">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Impianto/Comune</th>
+            <td mat-cell class="" *matCellDef="let a">{{plant(a.plant, a.district)}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="ewc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>CER</th>
+            <td mat-cell class="" *matCellDef="let a">{{a.ewc}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="laboratory">
+            <th mat-header-cell *matHeaderCellDef>Laboratorio</th>
+            <td mat-cell class="" *matCellDef="let a">{{a.laboratoryName}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="recyclingType">
+            <th mat-header-cell *matHeaderCellDef>Racc.</th>
+            <td mat-cell class="" *matCellDef="let a">{{a.recyclingTypeName}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="formDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Formul.</th>
+            <td mat-cell class="" *matCellDef="let a">{{a.formDate | date:'dd/MM/yy'}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="samplingDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Camp.</th>
+            <td mat-cell class="" *matCellDef="let a">{{a.samplingDate | date:'dd/MM/yy'}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="scheduledDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Program.</th>
+            <td mat-cell class="" *matCellDef="let a">{{a.scheduledDate | date:'dd/MM/yy HH:mm'}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="confirmedAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Consol.</th>
+            <td mat-cell class="" *matCellDef="let a">{{a.confirmedAt | date:'dd/MM/yy'}}</td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumns;" [class.bg-gray-200]="element.id === selectedId" class="cursor-pointer hover:bg-gray-100 my-5" (click)="rowClick(element)"></tr>
+        </table>
+      </div>
+  
+      <div class="mt-0">
+        <mat-paginator [length]="dataSource.length$ | async" [pageSize]="filter.pageSize" [pageIndex]="filter.pageIndex"  [pageSizeOptions]="[10, 15, 20, 40]" (page)="resizePage()" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </div>
+  
+  
+  

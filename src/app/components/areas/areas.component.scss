@@ -1,0 +1,21 @@
+.toolbar-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .table-container {
+    position: relative;
+    height: calc(100vh - 163px);
+    overflow-y: auto;
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  .mat-column-deleteOrRestore {
+    flex: 0 0 60px !important;
+    width: 60px !important;
+    text-align: center;
+  }
+  

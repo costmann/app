@@ -1,0 +1,60 @@
+.toolbar-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .table-container {
+    position: relative;
+    height: calc(100vh - 163px);
+    overflow-y: auto;
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  .mat-column-userName {
+    padding-left: 10px;
+    flex: 0 0 200px !important;
+    width: 200px !important;
+    // background-color: lightcyan;
+  }
+  
+  .mat-column-roleDescription {
+    padding-left: 10px;
+    flex: 0 0 200px !important;
+    width: 200px !important;
+    // background-color: lightcyan;
+  }
+  
+  .mat-column-laboratoryName {
+    padding-left: 10px;
+    flex: 0 0 200px !important;
+    width: 200px !important;
+    // background-color: lightcyan;
+  }
+  
+  .mat-column-edit {
+    flex: 0 0 60px !important;
+    width: 60px !important;
+    text-align: center;
+    // padding-left: 10px;
+    // background-color: lightcyan;
+  }
+  
+  .mat-column-delete {
+    flex: 0 0 60px !important;
+    width: 60px !important;
+    text-align: center;
+    // padding-right: 10px;
+    // background-color: bisque;
+  }
+  
+  .mat-column-icon {
+    flex: 0 0 60px !important;
+    width: 60px !important;
+    text-align: center;
+    // padding-right: 10px;
+    // background-color: bisque;
+  }
+  

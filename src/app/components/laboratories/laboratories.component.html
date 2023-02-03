@@ -1,0 +1,53 @@
+<div class="mx-5 mat-elevation-z8">
+    <mat-toolbar color="standard" >
+      <span>Laboratori</span>
+      <span class="toolbar-spacer"></span>
+      <button mat-icon-button [class.xl:hover:bg-gray-200]="canAdd" [disabled]="!canAdd" (click)="addDialog()" matTooltip="Aggiungi Laboratorio" matTooltipClass="app-tooltip">
+        <mat-icon class="material-icons-outlined">add_box</mat-icon>
+      </button>
+    </mat-toolbar>
+  
+    <div class="mt-5 py-5 table-container" #container>
+      <div class="h-1">
+        <mat-progress-bar mode="indeterminate" *ngIf="dataSource.loading$ | async as loading"></mat-progress-bar>
+      </div>
+      <table mat-table [dataSource]="dataSource">
+  
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Nome del laboratorio</th>
+          <td mat-cell class="" *matCellDef="let r">
+            <button mat-button (click)="editDialog(r)" [disabled]="!!r.deletedAt" >{{r.name}}</button>
+  
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="changeLogo">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let r">
+            <button mat-icon-button class="xl:hover:bg-gray-200" *ngIf="!r.deletedAt" (click)="changeLogoDialog(r)" matTooltip="Cambia Logo" matTooltipClass="app-tooltip">
+              <mat-icon class="material-icons-outlined">file_upload</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="deleteOrRestore">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let r">
+            <button mat-icon-button class="xl:hover:bg-gray-200" (click)="deleteDialog(r)" *ngIf="!r.deletedAt" matTooltip="Disabilita Laboratorio" matTooltipClass="app-tooltip">
+              <mat-icon class="material-icons-outlined">delete</mat-icon>
+            </button>
+  
+            <button mat-icon-button class="xl:hover:bg-gray-200" (click)="restore(r)" *ngIf="!!r.deletedAt" matTooltip="Ripristina Laboratorio" matTooltipClass="app-tooltip">
+              <mat-icon class="material-icons-outlined">restore_from_trash</mat-icon>
+            </button>
+  
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  
+    </div>
+  

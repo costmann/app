@@ -1,0 +1,102 @@
+.table-container {
+    position: relative;
+    height: calc(100vh - 216px);
+    overflow-y: auto;
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  th, td {
+    overflow: hidden;
+    width: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  // .mat-row .mat-cell {
+  //   border-bottom: 1px solid transparent;
+  //   border-top: 1px solid transparent;
+  //   cursor: pointer;
+  // }
+  
+  .mat-column-compiling {
+    flex: 0 0 60px !important;
+    width: 60px !important;
+    padding-right: 10px;
+    // background-color: bisque;
+  }
+  
+  .mat-column-number {
+    flex: 0 0 160px !important;
+    width: 160px !important;
+    font-size: small;
+    // background-color: bisque;
+  }
+  
+  .mat-column-authority {
+    flex: 0 0 300px !important;
+    width: 300px !important;
+    font-size: small;
+    // background-color: bisque;
+  }
+  
+  .mat-column-plant {
+    padding-right: 5px;
+    font-size: small;
+  }
+  
+  .mat-column-ewc {
+    padding-left: 10px;
+    flex: 0 0 180px !important;
+    width: 180px !important;
+    font-size: small;
+    // background-color: floralwhite;
+  }
+  
+  .mat-column-laboratory {
+    padding-left: 5px;
+    flex: 0 0 180px !important;
+    width: 180px !important;
+    font-size: small;
+    // background-color: floralwhite;
+  }
+  
+  .mat-column-recyclingType {
+    padding-left: 5px;
+    flex: 0 0 200px !important;
+    width: 200px !important;
+    font-size: small;
+    // background-color: floralwhite;
+  }
+  
+  .mat-column-formDate {
+    flex: 0 0 80px !important;
+    width: 80px !important;
+    font-size: small;
+    // background-color: red;
+  }
+  
+  .mat-column-samplingDate {
+    flex: 0 0 80px !important;
+    width: 80px !important;
+    font-size: small;
+    // background-color: gray;
+  }
+  
+  .mat-column-scheduledDate {
+    flex: 0 0 130px !important;
+    width: 130px !important;
+    font-size: small;
+    // background-color: green;
+  }
+  
+  .mat-column-confirmedAt {
+    flex: 0 0 80px !important;
+    width: 80px !important;
+    font-size: small;
+    // background-color: blue;
+  }
+  

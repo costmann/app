@@ -1,0 +1,148 @@
+<div class="flex justify-center">
+    <table class="table-fixed border-collapse border border-white">
+      <thead>
+        <tr style="visibility: collapse;">
+          <th class="cell-size" *ngFor="let c of cols">{{c}}</th>
+        </tr>
+      </thead>
+      <tbody>
+  
+        <tr class="h-20 border2x">
+          <td [colSpan]="sideCols" class="right-border"><img src="../../../assets/logo.svg" class="ml-2 h-16"></td>
+          <td [colSpan]="titleCols" class="text-center font-bold text-xl">
+            <div>{{ analysis.name }}</div>
+            <div>{{ analysis.method }}</div>
+          </td>
+          <td [colSpan]="sideCols" class="text-center left-border">{{ analysis.version }}</td>
+        </tr>
+  
+        <tr class="h-5 border-divider">
+          <td [colSpan]="cols.length"></td>
+        </tr>
+  
+        <ng-container *ngIf="showFields">
+          <tr>
+            <td colspan="3" class="bg-blue-100 top-border left-border">
+              <div class="text-center font-bold whitespace-pre-line">{{ authority!.label }}</div>
+            </td>
+            <td colspan="5" class="top-border">
+  
+              <select  [formControl]="authority!.formControl" class="text-lg font-bold focus:outline-black w-full h-8 pl-1 cursor-pointer">
+                <option></option>
+                <option *ngFor="let a of (authorities$ | async)" [value]="a">{{a}}</option>
+              </select>
+  
+            </td>
+            <td colspan="3" rowspan="2" class="bg-blue-100 top-border">
+              <div class="text-center font-bold whitespace-pre-line">{{ plant!.label}}</div>
+            </td>
+            <td colspan="5" rowspan="2" class="top-border align-middle">
+              <select [formControl]="plant!.formControl" class="text-lg font-bold focus:outline-black w-full h-16 pl-1 cursor-pointer">
+                <option></option>
+                <option *ngFor="let p of (plants$ | async)" [value]="p">{{p}}</option>
+              </select>
+            </td>
+            <td colspan="1" rowspan="2" class="bg-blue-100 top-border">
+              <div class="text-center font-bold whitespace-pre-line">{{ date!.label }}</div>
+            </td>
+            <td colspan="3" rowspan="2" class="top-border right-border align-middle">
+              <input type="date" [formControl]="date!.formControl" class="text-lg font-bold focus:outline-black w-full h-16 pl-1 cursor-pointer"/>
+            </td>
+          </tr>
+        </ng-container>
+  
+        <tr>
+          <td colspan="3" class="bg-blue-100 left-border">
+            <div class="text-center font-bold whitespace-pre-line">{{ flow!.label }}</div>
+          </td>
+          <td colspan="5">
+            <select [formControl]="flow!.formControl" class="text-lg font-bold focus:outline-black w-full h-8 pl-1 cursor-pointer">
+              <option></option>
+              <option *ngFor="let f of (flows$ | async)" [value]="f">{{f}}</option>
+            </select>
+          </td>
+        </tr>
+  
+        <tr>
+          <td [colSpan]="sideCols" class="left-border"></td>
+          <td class="text-center text-base">%</td>
+          <td class="text-center text-size">Peso Tot.<br/>Kg</td>
+          <td class="text-center text-size whitespace-pre-line" [ngClass]="{'right-border': i+1 === analysis.samples}" *ngFor="let w of wCols; let i = index">{{ w }}</td>
+        </tr>
+  
+        <tr class="h-8" [ngClass]="{'border-bottom2x': last}" *ngFor="let i of analysis.items; let first= first; let last = last">
+          <td [colSpan]="sideCols" class="text-size px-1 left-border font-medium" [ngClass]="{'text-right': i.highlighted}">{{i.description}}</td>
+          <td class="text-center font-bold">
+            <div *ngIf="!first">{{i.percentage| number:'1.2-2'}}</div>
+          </td>
+          <td class="text-center font-bold bg-blue-100">{{i.Value | number:'1.2-2'}}</td>
+          <td *ngIf="i.formControls.length === 0" [colSpan]="analysis.samples" class="bg-gray-100 right-border"></td>
+          <td *ngFor="let c of i.formControls; let last = last" [ngClass]="{'right-border': last}">
+            <div *ngIf="i.formControls.length > 0">
+              <input type="number" class="w-full py-1 px-1" [formControl]="c">
+            </div>
+          </td>
+        </tr>
+  
+        <tr class="h-5 border-divider">
+          <td [colSpan]="cols.length"></td>
+        </tr>
+  
+        <tr class="h-8">
+          <td colspan="4" class="text-center font-bold align-middle border2x">ESITO ANALISI</td>
+          <td class="no-border"></td>
+          <td class="no-border" colspan="2"></td>
+          <td class="no-border"></td>
+          <td colspan="12" class="no-border"></td>
+        </tr>
+  
+        <tr class="h-8">
+          <td colspan="3" class="text-center font-bold align-middle border2x">Fascia di riferimento</td>
+          <td class="text-center font-bold align-middle border2x bg-blue-100">{{ analysis.result.text }}</td>
+          <td class="no-border text-right font-bold px-2 text-xs">con il</td>
+          <td colspan="2" class="border2x text-center font-bold align-middle bg-blue-100">{{analysis.result.value | percent}}</td>
+          <td colspan="2" class="no-border text-left font-bold px-2 text-xs">del corrispettivo</td>
+          <td colspan="11" class="no-border"></td>
+        </tr>
+  
+        <tr class="h-10 border-divider">
+          <td [colSpan]="cols.length"></td>
+        </tr>
+  
+        <tr class="h-8">
+          <ng-container *ngFor="let s of analysis.signatures; let last = last">
+            <td colspan="6" class="text-center font-bold align-bottom no-border bottom-border">{{ s.description }}</td>
+            <td *ngIf="last === false" class="no-border"></td>
+          </ng-container>
+        </tr>
+  
+  
+        <tr class="h-8">
+          <ng-container *ngFor="let s of analysis.signatures; let last = last">
+            <td colspan="6" class="italic text-xs font-bold text-left px-2 border2x">Nome e Cognome</td>
+            <td *ngIf="last === false" class="no-border"></td>
+          </ng-container>
+        </tr>
+  
+        <tr class="h-12">
+          <ng-container *ngFor="let s of analysis.signatures; let last = last">
+            <td colspan="6" class="signature-border">
+              <input type="text" [formControl]="s.Signature1" class="w-full focus:outline-black outline-black">
+            </td>
+            <td *ngIf="last === false" class="no-border"></td>
+          </ng-container>
+        </tr>
+  
+        <tr class="h-12">
+          <ng-container *ngFor="let s of analysis.signatures; let last = last">
+            <td colspan="6" class="signature-border">
+              <input *ngIf="s.maxSignatures === 2" type="text" [formControl]="s.Signature2" class="w-full focus:outline-black outline-black">
+            </td>
+            <td *ngIf="last === false" class="no-border"></td>
+          </ng-container>
+        </tr>
+  
+      </tbody>
+    </table>
+  </div>
+  

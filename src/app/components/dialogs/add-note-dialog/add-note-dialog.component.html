@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>{{data.number}}</h2>
+<form [formGroup]="form">
+  <mat-dialog-content class="mat-typography">
+    <div class="mb-5">
+
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Descrizione</mat-label>
+        <input matInput type="text" cdkFocusInitial formControlName="description" autocomplete="off" required>
+        <mat-error *ngIf="description.invalid">Fornire una descrizione</mat-error>
+      </mat-form-field>
+
+      <!-- <input type="file" id="selectedFile" style="display: none;" (change)="handleFileInput($event)" /> -->
+
+      <!-- <button mat-raised-button class="hover:bg-gray-200" onclick="document.getElementById('selectedFile').click();">
+        <span>Inserisci File</span>
+      </button> -->
+
+      <mat-form-field class="w-full" appearance="outline">
+        <div>
+          <mat-toolbar class="text-sm">
+            <!-- Display files names -->
+
+            <input matInput formControlName="fileName" readonly name="name" required>
+
+            <!-- Browse Button -->
+            <button mat-raised-button color="standard">
+              Scegli il File
+            </button>
+          </mat-toolbar>
+
+          <!-- Fetch selected filed on change -->
+          <input type="file" #fileInput id="uploadFile" formControlName="file" (change)="uploadFileEvt($event)" name="uploadFile" accept="image/*" required>
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div [class.invisible]="!errorMessage" role="alert" class="h-8 w-full flex flex-wrap content-center justify-center bg-red-100 border border-red-400 rounded truncate">
+      <span class="text-red-700 font-semibold">ATTENZIONE: {{errorMessage}}</span>
+    </div>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Annulla</button>
+    <button mat-raised-button (click)="save()" color="primary" [disabled]="!isValid()" >Conferma</button>
+  </mat-dialog-actions>
+</form>

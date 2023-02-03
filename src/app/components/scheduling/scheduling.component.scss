@@ -1,0 +1,112 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-column-state {
+    flex: 0 0 60px !important;
+    width: 60px !important;
+    padding-right: 10px;
+    // background-color: bisque;
+  }
+  
+  .mat-column-number {
+    flex: 0 0 160px !important;
+    width: 160px !important;
+    font-weight: bold;
+    // background-color: bisque;
+  }
+  
+  .mat-column-date {
+    flex: 0 0 90px !important;
+    width: 90px !important;
+    padding-left: 10px;
+    // background-color: cornsilk;
+  }
+  
+  .mat-column-samplingDate {
+    flex: 0 0 90px !important;
+    width: 90px !important;
+    padding-left: 10px;
+    // background-color: cornsilk;
+  }
+  
+  .mat-column-authority {
+    padding-left: 10px;
+    // background-color: lightgrey
+  }
+  
+  .mat-column-hauler {
+    padding-left: 10px;
+    flex: 0 0 120px !important;
+    width: 120px !important;
+    // background-color: lightgrey
+  }
+  
+  
+  .mat-column-consignee {
+    padding-left: 10px;
+    flex: 0 0 110px !important;
+    width: 110px !important;
+    // background-color: floralwhite;
+  }
+  
+  .mat-column-plant {
+    padding-left: 10px;
+    flex: 0 0 320px !important;
+    width: 320px !important;
+    // background-color: lightcyan;
+  }
+  
+  .mat-column-district {
+    padding-left: 10px;
+    flex: 0 0 220px !important;
+    width: 220px !important;
+    // background-color: floralwhite;
+  }
+  
+  .mat-column-scheduleInfo {
+    padding-left: 20px;
+    flex: 0 0 220px !important;
+    width: 220px !important;
+    // background-color:whitesmoke;
+    border-left: 2px solid black;
+  }
+  
+  .mat-column-scheduleDate {
+    flex: 0 0 100px !important;
+    width: 100px !important;
+    padding-left: 10px;
+    // background-color: whitesmoke;
+  }
+  
+  .mat-column-ewc {
+    padding-left: 10px;
+    flex: 0 0 180px !important;
+    width: 180px !important;
+    // background-color: floralwhite;
+  }
+  
+  .mat-column-quantity {
+    // display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+    // justify-content: flex-end;
+    flex: 0 0 100px !important;
+    width: 100px !important;
+    // font-weight: bold;
+    text-align: end;
+    // background-color: deepskyblue;
+  }
+  
+  .disabled {
+    background-color: whitesmoke
+  }
+  
+  .table-container {
+    position: relative;
+    height: calc(100vh - 210px);
+    overflow-y: auto;
+    overflow-x: auto;
+    // background-color: lightyellow;
+  }
+  

@@ -1,0 +1,51 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+
+<mat-dialog-content class="mat-typography">
+  <div class="mb-5">
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>Nome del laboratorio</mat-label>
+      <input matInput [(ngModel)]="name" autocomplete="off" spellcheck="false" [disabled]="data.action === 'logo'">
+    </mat-form-field>
+
+    <div *ngIf="logo$ | async as logo" class="mat-elevation-z8 py-4 px-4 flex justify-center mb-4">
+      <!-- <span class="font-bold">Logo attuale</span> -->
+      <img [src]="'data:image/jpg;base64,' + logo.base64Image">
+    </div>
+
+    <mat-form-field class="w-full" appearance="outline" *ngIf="data.action !== 'edit'">
+      <div>
+        <mat-toolbar class="text-sm">
+          <!-- Display files names -->
+
+          <input matInput [(ngModel)]="fileName" readonly name="name" />
+
+          <!-- Browse Button -->
+          <button mat-raised-button color="standard">
+            Seleziona Logo
+          </button>
+        </mat-toolbar>
+
+        <!-- Fetch selected filed on change -->
+        <input type="file" #fileInput id="uploadFile" (change)="uploadFileEvt($event)" name="uploadFile" accept="image/*" />
+      </div>
+    </mat-form-field>
+
+    <div *ngIf="imgUrl" class="mat-elevation-z8 py-4 px-4 flex justify-center">
+      <img [src]="imgUrl" class="my-4" >
+    </div>
+
+
+  </div>
+
+  <div [class.invisible]="!errorMessage" role="alert" class="h-8 w-full flex flex-wrap content-center justify-center bg-red-100 border border-red-400 rounded truncate">
+    <span class="text-red-700 font-semibold">ATTENZIONE: {{errorMessage}}</span>
+  </div>
+</mat-dialog-content>
+<!-- <mat-divider></mat-divider> -->
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Annulla</button>
+  <button mat-raised-button (click)="save()" color="primary" [disabled]="!isValid()" *ngIf="data.action === 'add'">Aggiungi</button>
+  <button mat-raised-button (click)="edit()" color="primary" [disabled]="!isValid()" *ngIf="data.action === 'edit'">Modifica</button>
+  <button mat-raised-button (click)="uploadLogo()" color="primary" *ngIf="data.action === 'logo'" >Salva</button>
+</mat-dialog-actions>
+

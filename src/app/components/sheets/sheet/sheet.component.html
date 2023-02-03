@@ -1,0 +1,73 @@
+<div *ngIf="!!dataSheet" class="mx-5 mat-elevation-z8">
+
+    <mat-toolbar color="standard" >
+      <button mat-icon-button (click)="onBack()" class="xl:hover:bg-gray-200" matTooltip="Indietro" matTooltipClass="app-tooltip">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span class="mx-4">{{dataSheet.number}}</span>
+      <span class="ml-0 text-xs" *ngIf="revision && isChanged">Ultima modifica: {{ dataSheet.modifiedAt | date:'dd/MM/yy HH:mm' }}</span>
+      <!-- <mat-slide-toggle class="text-xs" [disabled]="!canSetConfirmation || (!canCancelConfirmation && dataSheet.confirmed)" [checked]="dataSheet.confirmed" (change)="changeConfirmation($event)" >{{ dataSheet.confirmed ? 'Consolidata' : 'Non Consolidata' }}</mat-slide-toggle> -->
+  
+      <mat-icon *ngIf="!revision" class="material-icons-outlined mx-3 cursor-default" [class.text-red-700]="!dataSheet.confirmed" [class.text-green-700]="dataSheet.confirmed" matTooltip="{{ dataSheet.confirmed ? 'Analisi consolidata' : 'Analisi non consolidata' }}" matTooltipClass="app-tooltip">{{ dataSheet.confirmed ? 'lock' : 'lock_open' }}</mat-icon>
+      <mat-icon *ngIf="!revision && !!dataSheet.confirmed" class="material-icons-outlined mx-3 cursor-default" matTooltip="{{ dataSheet.sent ? 'Notifica iniviata' : 'Notifica non inviata' }}" matTooltipClass="app-tooltip">{{ dataSheet.sent ? 'mark_email_read' : 'mark_email_unread' }}</mat-icon>
+      <span class="toolbar-spacer"></span>
+  
+      <button mat-icon-button class="hover:bg-gray-200" (click)="onNotes()" matTooltip="Foto" matTooltipClass="app-tooltip">
+        <mat-icon [matBadge]="dataSheet.notes > 0 ? dataSheet.notes : ''" matBadgeColor="accent" class="material-icons-outlined">photo_camera</mat-icon>
+      </button>
+  
+  
+      <ng-container *ngIf="!isAuthority">
+        <button *ngIf="revision" mat-icon-button class="xl:hover:bg-gray-200" (click)="download(true)" matTooltip="Scarica analisi consolidata" matTooltipClass="app-tooltip">
+          <mat-icon class="material-icons-outlined">lock</mat-icon>
+        </button>
+  
+        <button *ngIf="revision" mat-icon-button [class.xl:hover:bg-gray-200]="isChanged" [disabled]="!isChanged" (click)="download(false)" matTooltip="Scarica analisi modificata" matTooltipClass="app-tooltip">
+          <mat-icon class="material-icons-outlined">download</mat-icon>
+        </button>
+      </ng-container>
+  
+      <ng-container *ngIf="isAuthority">
+        <button *ngIf="revision" mat-icon-button class="xl:hover:bg-gray-200" (click)="download(!isChanged)" matTooltip="Scarica" matTooltipClass="app-tooltip">
+          <mat-icon class="material-icons-outlined">download</mat-icon>
+        </button>
+      </ng-container>
+  
+      <button *ngIf="!revision" mat-icon-button [class.xl:hover:bg-gray-200]="canDownload" [disabled]="!canDownload || dirty()" (click)="download()" matTooltip="Scarica" matTooltipClass="app-tooltip">
+        <mat-icon class="material-icons-outlined">download</mat-icon>
+      </button>
+  
+  
+      <button mat-icon-button [class.xl:hover:bg-gray-200]="canSave" [disabled]="!canSave || !dirty()" (click)="save()" matTooltip="Salva" matTooltipClass="app-tooltip" *ngIf="!readonly">
+        <mat-icon class="material-icons-outlined">save</mat-icon>
+      </button>
+  
+      <button mat-icon-button [class.xl:hover:bg-gray-200]="canConsolidate" [disabled]="!canConsolidate" (click)="confirmConfirmation()" matTooltip="Consolida" matTooltipClass="app-tooltip" *ngIf="!readonly">
+        <mat-icon class="material-icons-outlined">verified</mat-icon>
+      </button>
+  
+      <button mat-icon-button [class.xl:hover:bg-gray-200]="canDelete"  [disabled]="!canDelete" (click)="confirmDeletion()" matTooltip="Elimina" matTooltipClass="app-tooltip" *ngIf="!revision && !readonly">
+        <mat-icon class="material-icons-outlined">delete</mat-icon>
+      </button>
+    </mat-toolbar>
+  
+    <div class="mt-0 py-5 sheet-container" #container>
+      <app-t1 *ngIf="dataSheet.recyclingTypeTemplateId === 1" [dataSheet]="dataSheet" [scale]="scale" [readonly]="readonly" #t1 id='t1'></app-t1>
+      <app-t2 *ngIf="dataSheet.recyclingTypeTemplateId === 2" [dataSheet]="dataSheet" [scale]="scale" [readonly]="readonly" #t2 id='t2'></app-t2>
+      <div class="bg-gray-100 rounded-full flex justify-between items-center px-1 w-40 h-12 fixed bottom-10 right-10">
+        <button mat-icon-button class="xl:hover:bg-gray-200" [disabled]="!canZoomIn()" [disableRipple]="false">
+          <mat-icon class="material-icons-outlined" (click)="zoomIn()">zoom_in</mat-icon>
+        </button>
+        <div class="w-14">
+          <mat-select [(ngModel)]="scale" class="font-medium text-right" (selectionChange)="center()">
+            <mat-option *ngFor="let s of scales" [value]="s">{{s}}%</mat-option>
+          </mat-select>
+        </div>
+        <button mat-icon-button class="xl:hover:bg-gray-200" [disabled]="!canZoomOut()" [disableRipple]="false" >
+          <mat-icon class="material-icons-outlined" (click)="zoomOut()">zoom_out</mat-icon>
+        </button>
+      </div>
+    </div>
+  
+  </div>
+  

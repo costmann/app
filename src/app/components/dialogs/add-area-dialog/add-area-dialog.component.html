@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+
+<mat-dialog-content class="mat-typography">
+  <div class="mb-5">
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input matInput [(ngModel)]="name" autocomplete="off" spellcheck="false" class="uppercase" >
+    </mat-form-field>
+  </div>
+
+  <div [class.invisible]="!errorMessage" role="alert" class="h-8 w-full flex flex-wrap content-center justify-center bg-red-100 border border-red-400 rounded truncate">
+    <span class="text-red-700 font-semibold">ATTENZIONE: {{errorMessage}}</span>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Annulla</button>
+  <button mat-raised-button (click)="save()" color="primary" [disabled]="!isValid()" *ngIf="data.action === 'add'">Aggiungi</button>
+  <button mat-raised-button (click)="edit()" color="primary" [disabled]="!isValid()" *ngIf="data.action === 'edit'">Modifica</button>
+</mat-dialog-actions>
+
+

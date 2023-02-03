@@ -1,0 +1,195 @@
+<div class="flex justify-center transform scale-{{scale}}">
+    <table class="table-fixed border-collapse border border-white">
+      <thead>
+        <tr style="visibility: collapse;">
+          <th class="w-20">01
+          </th>
+          <th class="w-20">02
+          </th>
+          <th class="w-20">03
+          </th>
+          <th class="w-20">04
+          </th>
+          <th class="w-20">05
+          </th>
+          <th class="w-20">06
+          </th>
+          <th class="w-20">07
+          </th>
+          <th class="w-20">08
+          </th>
+          <th class="w-20">09
+          </th>
+          <th class="w-20">10
+          </th>
+          <th class="w-20">11
+          </th>
+          <th class="w-20">12
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="h-20 border-b-4 border-black hidden">
+          <td colspan="6" class="align-bottom pb-2">
+            <img src="../../../assets/logo.svg" class="ml-2 h-16">
+          </td>
+          <td colspan="6" class="text-right align-bottom pb-2">
+            <div class="text-lg">{{ analysis.version }}</div>
+          </td>
+        </tr>
+  
+        <tr class="h-8 hidden">
+          <td class="12"></td>
+        </tr>
+  
+        <tr>
+          <td></td>
+  
+          <td colspan="4">
+            <mat-form-field class="text-lg font-bold w-full" appearance="fill">
+              <mat-label>{{analysis.reportNumber.label}}</mat-label>
+              <input matInput placeholder="" [formControl]="analysis.reportNumber.formControl" autocomplete="off">
+            </mat-form-field>
+          </td>
+  
+          <td colspan="2"></td>
+  
+          <td colspan="4" class="text-right">
+            <mat-form-field class="text-lg font-bold w-full" appearance="fill">
+              <mat-label>{{analysis.analysisDate.label}}</mat-label>
+              <input matInput [matDatepicker]="picker" [formControl]="analysis.analysisDate.formControl">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </td>
+          <td></td>
+        </tr>
+  
+        <tr class="h-0">
+          <td class="12"></td>
+        </tr>
+  
+        <ng-container *ngIf="analysis.fields.length > 0">
+          <tr class="h-8" *ngFor="let f of analysis.fields; let first = first; let last = last">
+            <td></td>
+            <td colspan="3" class="bg-blue-100 text-center font-bold text-lg border-l-4 border-r-1 border-black" [ngClass]="{'border-t-4': first || last, 'border-t-1': !first, 'border-b-4': last }">
+              <div>{{f.label}}</div>
+            </td>
+            <td colspan="7" class="border-r-4 border-black" [ngClass]="{'border-t-4': first || last, 'border-t-1': !first, 'border-b-4': last }">
+              <select [formControl]="f.formControl" class="text-lg font-bold focus:outline-black w-full h-8 pl-1 cursor-pointer" *ngIf="!!f.dataSource">
+                <option></option>
+                <option *ngFor="let s of f.items | async" [value]="s">{{s}}</option>
+              </select>
+  
+              <input [type]="f.type" [formControl]="f.formControl" class="text-lg font-bold focus:outline-black w-full h-8 pl-1" [readonly]="f.readonly"  *ngIf="!f.dataSource"/>
+            </td>
+            <td></td>
+          </tr>
+        </ng-container>
+  
+        <tr class="h-4">
+          <td colspan="12"></td>
+        </tr>
+  
+        <tr class="h-8">
+          <td colspan="3"></td>
+          <td colspan="5" class="border-2 border-black bg-blue-100"><div class="text-lg font-bold text-center">PESO CAMPIONE in Kg</div></td>
+          <td colspan="2" class="border-2 border-black bg-blue-100"><div class="text-lg font-bold text-center">{{analysis.totalValue | number:'1.2-2'}}</div></td>
+          <td colspan="2"></td>
+        </tr>
+  
+        <tr class="h-8">
+          <td colspan="3"></td>
+          <td colspan="5" class="border-2 border-black bg-blue-100"><div class="text-lg font-bold text-center">Frazioni Cernite</div></td>
+          <td class="border-2 border-black bg-blue-100"><div class="text-lg font-bold text-center">KG</div></td>
+          <td class="border-2 border-black bg-blue-100"><div class="text-lg font-bold text-center">%</div></td>
+          <td colspan="2"></td>
+        </tr>
+  
+        <tr class="h-8" *ngFor="let i of analysis.items; let last = last">
+            <td colspan="2"></td>
+            <td class="border-2 border-black">
+              <div class="text-lg font-medium text-center">
+                <span [ngClass]="{'text-sm': i.ofWhich, 'text-lg': !i.ofWhich}">{{i.code }}</span>
+              </div>
+            </td>
+            <td colspan="5" class="border-black" [ngClass]="{'border-b-2': last, 'border-b-1': !last}">
+              <div class="text-lg font-bold text-center">
+                <span [ngClass]="{'text-sm': i.ofWhich, 'text-lg': !i.ofWhich}">{{ i.description }}</span>
+              </div>
+            </td>
+            <td class="border-2 border-black bg-blue-100">
+              <div class="text-lg text-center" *ngIf="!!i.formControl  === false">
+                <span [ngClass]="{'font-bold': i.highlighted}">{{i.Value | number:'1.2-2'}}</span>
+              </div>
+              <input type="number" class="w-full h-7 focus:outline-black font-normal text-lg text-center" *ngIf="!!i.formControl" [formControl]="i.formControl">
+            </td>
+            <td class="border-2 border-black">
+              <div class="text-lg text-center">
+                <span [ngClass]="{'font-bold': i.highlighted}">
+                  {{i.percentage | number:'1.2-2'}}
+                </span>
+              </div>
+            </td>
+            <td colspan="2"></td>
+        </tr>
+  
+        <!-- <tr class="h-8">
+          <td colspan="2"></td>
+          <td class="border-r-2 border-black"><div class="text-sm font-medium text-center"></div></td>
+          <td colspan="5" class="border-b-2 border-black"><div class="text-lg font-bold text-center">TOT FRAZIONE CONFORME</div></td>
+          <td class="border-2 border-black bg-blue-100">
+            <div class="text-lg font-bold text-center">
+              {{analysis.Footer?.Value | number:'1.2-2'}}
+            </div>
+          </td>
+          <td class="border-2 border-black"><div class="text-lg font-bold text-center">{{ analysis.Footer?.percentage | number:'1.2-2'}}</div></td>
+          <td colspan="2"></td>
+        </tr> -->
+  
+        <tr class="h-8">
+          <td colspan="9" class="border-r-2 border-black"></td>
+          <!-- <td colspan="6" class="border-2 border-black bg-blue-100"></td> -->
+          <td class="border-2 border-black"><div class="text-lg font-normal text-center">{{analysis.total?.percentage | number}}</div></td>
+          <td colspan="2"></td>
+        </tr>
+  
+        <tr class="h-4">
+          <td class="12"></td>
+        </tr>
+  
+        <ng-container *ngIf="showSignatures">
+          <tr>
+            <td colspan="6" class="text-lg text-center font-bold align-bottom border-2 border-black" *ngFor="let s of analysis.signatures">{{ s.description }}</td>
+          </tr>
+  
+          <tr>
+            <td colspan="6" class="text-lg font-bold text-left border-2 border-black px-2" *ngFor="let s of analysis.signatures">NOMINATIVI</td>
+          </tr>
+  
+          <tr>
+            <td colspan="6" class="text-lg font-bold text-left border-2 border-black" *ngFor="let s of analysis.signatures">
+              <input type="text" class="w-full focus:outline-black outline-none pl-1" [formControl]="s.Signature1">
+            </td>
+          </tr>
+  
+          <tr>
+            <td colspan="6" class="text-lg font-bold text-left border-2 border-black" *ngFor="let s of analysis.signatures">
+              <input type="text" class="w-full focus:outline-black outline-none pl-1" [formControl]="s.Signature2">
+            </td>
+          </tr>
+        </ng-container>
+  
+        <tr class="h-20">
+          <td colspan="12"></td>
+        </tr>
+  
+        <tr class="border-t-4 border-black">
+          <td colspan="12" class="text-right align-top pb-2">
+            <div class="text-lg">{{ analysis.version }}</div>
+          </td>
+        </tr>
+  
+      </tbody>
+    </table>
+  

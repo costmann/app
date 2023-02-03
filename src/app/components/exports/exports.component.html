@@ -1,0 +1,61 @@
+<h1 class="text-center">Esportazione analisi</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="flex flex-col mb-10 w-64 mx-auto mt-10">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Area</mat-label>
+      <mat-select formControlName="area" cdkFocusInitial [required]="isAuthority">
+        <mat-option *ngIf="!isAuthority"></mat-option>
+        <mat-option *ngFor="let a of areas$ | async" [value]="a.id">
+          {{a.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Comune</mat-label>
+      <input type="text" onClick="this.setSelectionRange(0, this.value.length)"
+             placeholder="Comune"
+             matInput
+             [formControl]="districtControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let d of filteredDistricts$ | async" [value]="d">
+          {{ d }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Periodo</mat-label>
+      <mat-date-range-input [formGroup]="range" [rangePicker]="picker" required>
+        <input matStartDate placeholder="Data inizio" formControlName="start" required>
+        <input matEndDate placeholder="Data fine" formControlName="end" required>
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-error *ngIf="range.controls['start'].hasError('matStartDateInvalid')">Data inizio non valida</mat-error>
+      <mat-error *ngIf="range.controls['end'].hasError('matEndDateInvalid')">Data fine non valida</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tipologia di raccolta</mat-label>
+      <mat-select formControlName="recyclingType" required [multiple]="true">
+        <mat-option *ngFor="let c of types$ | async" [value]="c.id">
+          {{c.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="flex justify-center">
+      <button mat-fab color="primary" [disabled]="form.invalid" *ngIf="!waiting">
+        <mat-icon class="material-icons-outlined">file_download</mat-icon>
+      </button>
+      <mat-spinner *ngIf="waiting" [diameter]="30"></mat-spinner>
+    </div>
+  </div>
+</form>
+
+<div class="text-center text-red-700 font-bold text-lg" *ngIf="!!message">
+  {{message}}
+</div>

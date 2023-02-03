@@ -1,0 +1,11 @@
+.toolbar-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .sheet-container {
+    position: relative;
+    height: calc(100vh - 143px);
+    overflow-y: auto;
+    overflow-x: auto;
+  }
+  
