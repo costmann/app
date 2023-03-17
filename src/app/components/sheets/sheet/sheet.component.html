@@ -54,19 +54,17 @@
     <div class="mt-0 py-5 sheet-container" #container>
       <app-t1 *ngIf="dataSheet.recyclingTypeTemplateId === 1" [dataSheet]="dataSheet" [scale]="scale" [readonly]="readonly" #t1 id='t1'></app-t1>
       <app-t2 *ngIf="dataSheet.recyclingTypeTemplateId === 2" [dataSheet]="dataSheet" [scale]="scale" [readonly]="readonly" #t2 id='t2'></app-t2>
-      <div class="bg-gray-100 rounded-full flex justify-between items-center px-1 w-40 h-12 fixed bottom-10 right-10">
-        <button mat-icon-button class="xl:hover:bg-gray-200" [disabled]="!canZoomIn()" [disableRipple]="false">
-          <mat-icon class="material-icons-outlined" (click)="zoomIn()">zoom_in</mat-icon>
+      <!-- <div class="bg-gray-100 rounded-full flex justify-between items-center px-1 h-12 fixed bottom-10 right-10">
+        <button mat-icon-button class="xl:hover:bg-gray-200" (click)="zoomIn()" [disabled]="!canZoomIn()" [disableRipple]="false">
+          <mat-icon class="material-icons-outlined">zoom_in</mat-icon>
         </button>
-        <div class="w-14">
-          <mat-select [(ngModel)]="scale" class="font-medium text-right" (selectionChange)="center()">
-            <mat-option *ngFor="let s of scales" [value]="s">{{s}}%</mat-option>
-          </mat-select>
-        </div>
-        <button mat-icon-button class="xl:hover:bg-gray-200" [disabled]="!canZoomOut()" [disableRipple]="false" >
-          <mat-icon class="material-icons-outlined" (click)="zoomOut()">zoom_out</mat-icon>
+        <select [(ngModel)]="scale" class="font-medium text-center bg-gray-100 outline-none">
+          <option *ngFor="let s of scales" [value]="s">{{s}}%</option>
+        </select>
+        <button mat-icon-button class="xl:hover:bg-gray-200" (click)="zoomOut()" [disabled]="!canZoomOut()" [disableRipple]="false" >
+          <mat-icon class="material-icons-outlined">zoom_out</mat-icon>
         </button>
-      </div>
+      </div> -->
     </div>
   
   </div>

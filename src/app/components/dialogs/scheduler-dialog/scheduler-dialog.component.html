@@ -42,11 +42,11 @@
     </div>
   </div>
   <mat-divider></mat-divider>
-  <div mat-dialog-actions class="flex justify-between">
-    <div>
-      <button mat-raised-button color="warn" (click)="onDelete()" type="button" *ngIf="!!data.schedule && (data.schedule.compiling === false) && (data.schedule.confirmed === false)">Cancella Richiesta</button>
-    </div>
-    <div>
+  <div  class="flex justify-between p-5" >
+    
+    <button mat-raised-button color="warn" class="mr-4" (click)="onDelete()" type="button" [disabled]="!canDelete()" >Cancella Richiesta</button>
+    
+    <div class="flex space-x-2">
       <button mat-button mat-dialog-close type="button">Chiudi</button>
       <button mat-raised-button color="primary" type="submit" [disabled]="(form.valid === false) || (form.touched === false)">Salva</button>
     </div>

@@ -40,3 +40,41 @@ $analyses-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.username-tooltip {
+  font-size: large;
+  padding: 20px !important;
+  white-space: pre-line;
+}
+
+.app-tooltip {
+  padding: 6px !important;
+  font-size: medium;
+}
+
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  // border-radius: 30px;
+  // background-color: rgba(0, 0, 0, 0.1);
+}
+
+*::-webkit-scrollbar-thumb {
+  // border-radius: 30px;
+  // background-color: silver;
+  background: silver;
+  border-radius: 30px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background:dimgray;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field .mdc-notched-outline__notch {
+  border-right-style: hidden;
+}

@@ -13,9 +13,10 @@
           </button>
         </mat-form-field>
       </div>
-      <div class="flex flex-none justify-end w-48">
-        <button mat-raised-button (click)="export()" class="font-light" color="primary" *ngIf="canExport()">
-          <mat-icon class="material-icons-outlined">file_download</mat-icon><span> Esporta programma</span>
+      <div class="flex flex-none justify-end">
+        <button  mat-raised-button (click)="export()" class="font-light" color="primary" *ngIf="canExport()">
+          <mat-icon class="material-icons-outlined">file_download</mat-icon>
+          <span> Esporta programma</span>
         </button>
       </div>
     </div>
@@ -28,11 +29,8 @@
       <div class="table-container">
         <table mat-table [dataSource]="dataSource" matSort [matSortActive]="filter.sortColumn" [matSortDirection]="filter.sortDirection">
   
-  
           <ng-container matColumnDef="compiling">
-            <th mat-header-cell *matHeaderCellDef>
-              <!-- <mat-icon class="material-icons-outlined" >edit</mat-icon> -->
-            </th>
+            <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let a">
               <mat-icon class="material-icons-outlined mt-2" *ngIf="a.compiling" matTooltip="Analisi in corso" matTooltipClass="app-tooltip">science</mat-icon>
               <mat-icon class="material-icons-outlined mt-2 text-green-700" *ngIf="a.confirmed" matTooltip="Consolidata" matTooltipClass="app-tooltip">verified</mat-icon>

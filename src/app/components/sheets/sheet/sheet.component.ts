@@ -27,7 +27,19 @@ export class SheetComponent {
   dataSheet: ISheet | undefined
 
   scales = ['40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95', '100']
-  scale = '100'
+  private _scale = '100'
+
+  public get scale() {
+    return this._scale
+  }
+
+  public set scale(value: string) {
+
+    if (value !== this._scale) {
+      this._scale = value
+      this.center()
+    }
+  }
 
   @ViewChild('container') sheet!: ElementRef
   @ViewChild(T1Component) t1!: T1Component
@@ -135,9 +147,13 @@ export class SheetComponent {
   }
 
   center(): void {
+    if ((!!this.sheet) && (!!this.sheet.nativeElement)) {
       const top = (this.sheet.nativeElement.scrollHeight - this.sheet.nativeElement.clientHeight) / 2
       this.sheet.nativeElement.scrollTo({top: top})
       window.sessionStorage.setItem('scale', this.scale)
+    }
+
+
   }
 
   canZoomIn(): boolean {

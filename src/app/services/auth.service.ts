@@ -66,7 +66,6 @@ export class AuthService {
         this.userSubject.next(user)
       },
       error:(e) => {
-        console.log(e)
         let errorMessage = 'Impossibile connettersi'
         if (!!e.error && !!e.error.message) {
           errorMessage = e.error.message

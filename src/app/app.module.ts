@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, registerLocaleData } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
@@ -41,13 +41,14 @@ import { ExportSchedulesDialogComponent } from './components/dialogs/export-sche
 import { SaveSheetDialogComponent } from './components/dialogs/save-sheet-dialog/save-sheet-dialog.component';
 import { SchedulerDialogComponent } from './components/dialogs/scheduler-dialog/scheduler-dialog.component';
 import { SetAreaDialogComponent } from './components/dialogs/set-area-dialog/set-area-dialog.component';
-import { AnalysisV01Component } from './components/forms/analysis-v01/analysis-v01.component';
-import { GlassV01Component } from './components/forms/glass-v01/glass-v01.component';
 import { SheetComponent } from './components/sheets/sheet/sheet.component';
 import { T1Component } from './components/sheets/t1/t1.component';
 import { T2Component } from './components/sheets/t2/t2.component';
 import { AngularMaterialModule } from './modules/angular-material/angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import localeIt from '@angular/common/locales/it';
+
+registerLocaleData(localeIt)
 
 @NgModule({
   declarations: [
@@ -78,8 +79,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SaveSheetDialogComponent,
     SchedulerDialogComponent,
     SetAreaDialogComponent,
-    AnalysisV01Component,
-    GlassV01Component,
     SheetComponent,
     T1Component,
     T2Component,

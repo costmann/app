@@ -1,0 +1,44 @@
+.toolbar-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .content-container {
+    height: calc(100% - 64px);
+    overflow-y: auto !important;
+    background-color: white;
+  }
+  
+  @media screen and (max-width: 640px) {
+    .content-container {
+      height: calc(100% - 56px);
+      overflow-y: auto !important;
+      background-color: white;
+    }
+  }
+  
+  .app-toolbar {
+    position: sticky;
+    position: -webkit-sticky; /* For macOS/iOS Safari */
+    top: 0; /* Sets the sticky toolbar to be on top */
+    z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+    background-color: white;
+  }
+  
+  .sidenav-container {
+    background-color: white;
+    border-style: none;
+  }
+  
+  mat-list-option[aria-selected="true"] {
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: mistyrose;
+    color: crimson;
+  }
+  
+  mat-list-option:hover{
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
+  
+  

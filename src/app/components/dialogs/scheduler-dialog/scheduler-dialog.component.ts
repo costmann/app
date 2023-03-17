@@ -107,6 +107,10 @@ export class SchedulerDialogComponent {
     })
   }
 
+  canDelete(): boolean {
+    return !!this.data.schedule && (this.data.schedule.compiling === false) && (this.data.schedule.confirmed === false)
+  }
+
   onSubmit(): void {
     const s = this.form.getRawValue()
 

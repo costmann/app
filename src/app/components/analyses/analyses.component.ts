@@ -67,7 +67,7 @@ export class AnalysesComponent implements OnInit, AfterViewInit {
 
 
   constructor(analysesService: AnalysesService, session: SessionService, private route: ActivatedRoute, private router: Router) {
-
+    
     session.init('analyses')
 
     this.dataSource = new AnalysesDataSource(analysesService)

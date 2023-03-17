@@ -147,12 +147,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   rowClick(a: IAnalysisData): void {
     const json = JSON.stringify(a)
+    console.log(json)
     if (a.confirmed) {
       window.sessionStorage.setItem('currentConsolidated', json)
-      this.router.navigate(['/consolidated']);
+      this.router.navigate(['/consolidated'])
     } else {
       window.sessionStorage.setItem('currentAnalysis', json)
-      this.router.navigate(['/analyses']);
+      this.router.navigate(['/analyses'])
     }
 
     window.sessionStorage.setItem('selectedId', a.id.toString())

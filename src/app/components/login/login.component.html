@@ -13,21 +13,18 @@
       </div>
   
       <div cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
-        <mat-form-field class="w-full">
+        <mat-form-field appearance="outline" class="w-full">
           <mat-label>Utente</mat-label>
-          <input cdkFocusInitial matInput type="text" autocomplete="off" name="username"
-            [placeholder]="placeholder" formControlName="username" required>
+          <input cdkFocusInitial matInput type="text" autocomplete="off" name="username" [placeholder]="placeholder" formControlName="username" required>
           <mat-icon matSuffix>person</mat-icon>
-          <!-- <mat-hint *ngIf="!username.value">Inserisci il tuo nome utente</mat-hint> -->
         </mat-form-field>
   
-        <mat-form-field class="w-full">
+        <mat-form-field appearance="outline" class="w-full">
           <mat-label>Password</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'" placeholder="" name="password"
-            formControlName="password" required>
+          <input matInput [type]="hide ? 'password' : 'text'" placeholder="" name="password" formControlName="password" required>
           <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer;">
-            {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          <!-- <mat-hint *ngIf="!password.value">Inserisci la tua password</mat-hint> -->
+            {{hide ? 'visibility_off' : 'visibility'}}
+          </mat-icon>
           <mat-error *ngIf="passwordFormControl.hasError('required')">
             La password è <strong>obbligatoria</strong>
           </mat-error>

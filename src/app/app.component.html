@@ -1,1 +1,57 @@
-<router-outlet></router-outlet>
+<ng-container *ngIf="user$ | async as user; else login">
+
+    <mat-toolbar class="app-toolbar">
+      <button mat-icon-button (click)="toggleMenu()" class="hover:bg-gray-100">
+        <mat-icon class="material-icons-outlined">
+          {{ desktopMode ? 'menu' : sidenav.opened ? 'close' : 'menu' }}
+        </mat-icon>
+      </button>
+      <img src="../../assets/logo.svg" class="sm:h-12 sm:mx-4 mx-2 h-6">
+      <span>{{ title }}</span>
+      <span class="toolbar-spacer"></span>
+      <button mat-icon-button [matMenuTriggerFor]="menu"
+        class="focus:outline-none hover:bg-gray-100" [matTooltip]="getUserInfo(user)"
+        matTooltipShowDelay="1000" matTooltipClass="username-tooltip">
+        <mat-icon class="material-icons-outlined">account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item class="focus:outline-none" (click)="passwordChange()" *ngIf="canChangePassword">
+          <mat-icon>password</mat-icon>
+          <span>Modifica password</span>
+        </button>
+        <mat-divider *ngIf="canChangePassword"></mat-divider>
+        <button mat-menu-item class="focus:outline-none" (click)="signOut()">
+          <mat-icon>logout</mat-icon>
+          <span>Disconnetti {{user.name}}</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+  
+    <mat-sidenav-container class="content-container" [hasBackdrop]="hasBackdrop" autosize>
+      <mat-sidenav #sidenav [mode]="mode" [disableClose]="disableClose" [opened]="opened" fixedInViewport="false" fixedBottomGap="0" class="sidenav-container">
+        <mat-selection-list [multiple]="false" [(ngModel)]="selectedItem" #items [class.w-60]="sidemenu.expanded" hideSingleSelectionIndicator="true">
+          <mat-list-option [disableRipple]="true" *ngFor="let item of user.menu"
+            [value]="item.path" (click)="onClick(item)"
+            [matTooltip]="sidemenu.expanded ? '' : item.description"
+            matTooltipPosition="right" matTooltipShowDelay="1000"
+            matTooltipClass="app-tooltip">
+            <div class="flex space-x-2">
+                <mat-icon [class.material-icons-outlined]="(menu$ | async)?.path !== item.path" mat-list-icon>{{item.icon}}</mat-icon>
+                <h4 *ngIf="sidemenu.expanded">
+                    <span [class.font-medium]="(menu$ | async)?.path === item.path">{{item.description}}</span>
+                </h4>
+            </div>
+          </mat-list-option>
+        </mat-selection-list>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  
+  </ng-container>
+  
+  <ng-template #login>
+    <router-outlet></router-outlet>
+  </ng-template>
+  
