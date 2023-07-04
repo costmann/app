@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    apiWIFUrl: 'http://analisi.revet.com:60083/wif/api',
-    apiUrl: 'http://analisi.revet.com:60083/analyses/api',
+    apiWIFUrl: 'https://analisi.revet.com:60453/wif/api',
+    apiUrl: 'https://analisi.revet.com:60453/analyses/api',
     appName: 'SAM',
 };

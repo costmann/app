@@ -34,11 +34,15 @@ export class ExportsService {
 
   export(data: any): Observable<HttpResponse<Blob>> {
 
+
+    const start = new Date(data.range.start)
+    const end = new Date(data.range.end)
+
     const body = {
       areaId: !!data.area ? data.area : null,
       district: data.district,
-      startDate: moment(data.range.start).toDate().toISOString(),
-      endDate: moment(data.range.end).toDate().toISOString(),
+      startDate: new Date(Date.UTC(start.getFullYear(), start.getMonth(), start.getDate(), 0, 0, 0)).toISOString().slice(0, 10),
+      endDate: new Date(Date.UTC(end.getFullYear(), end.getMonth(), end.getDate(), 0, 0, 0)).toISOString().slice(0, 10),
       recyclingTypes: data.recyclingType
     }
 
